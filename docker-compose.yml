@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  diet-app:
+    image: kevinyabut008/diet-analysis
+    container_name: diet_container
+    restart: always

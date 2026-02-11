@@ -1,0 +1,29 @@
+Project: Cloud-Native Diet Dataset Processing
+
+This repo contains:
+- Task 1: data_analysis.py (local pandas analysis + plots)
+- Task 2: Dockerfile (containerizes Task 1)
+- Task 3: lambda_function.py (reads CSV from Azurite Blob Storage emulator and saves results to JSON)
+- Task 4: GitHub Actions workflow (.github/workflows/deploy.yml)
+
+Task 3 quick run (local):
+1) Start Azurite (Docker):
+   docker run -d --name azurite -p 10000:10000 -p 10001:10001 -p 10002:10002 mcr.microsoft.com/azure-storage/azurite
+
+2) Upload All_Diets.csv to Azurite using Azure Storage Explorer:
+   - Create container: datasets
+   - Upload blob: All_Diets.csv
+
+3) Run the “serverless” script:
+   pip install -r requirements.txt
+   python lambda_function.py
+
+Output JSON will be written to: ./simulated_nosql/results.json
+
+Task 4:
+- Push to GitHub (main branch). GitHub Actions will:
+  - install dependencies
+  - compile python files
+  - build Docker image
+  - optionally push to Docker Hub if you set secrets:
+    DOCKERHUB_USERNAME and DOCKERHUB_TOKEN
